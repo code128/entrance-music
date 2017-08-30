@@ -7,11 +7,19 @@ import time
 localPath = os.path.dirname( os.path.realpath( __file__ ) )
 cmdLinePlaySoundCommand = "afplay -t " + settings.songTimeOutInSeconds
 lastID = ""
+#lastID = "38234" #Uncomment to play default song at startup
 
 def playThemeSong(latestEntrant):
-	songFile = latestEntrant["id"] + "_" + str(latestEntrant["name"]).replace(" ", "_") + ".mp3"
-	print "playing", songFile
-	os.popen(cmdLinePlaySoundCommand + ' "' + os.path.join(settings.soundEffectsDirectory, songFile) + '"')
+	songName = latestEntrant["id"] + "_" + str(latestEntrant["name"]).replace(" ", "_") + ".mp3"
+	songPath = os.path.join(settings.soundEffectsDirectory, songName)
+	if (os.path.exists(songPath)):	#check for existence
+		print "playing", songPath
+		os.popen(cmdLinePlaySoundCommand + ' "' + songPath + '"')
+	else: #play the backup sound
+		defaultSongPath = os.path.join(settings.soundEffectsDirectory, settings.defaultSong)
+		if (os.path.exists(defaultSongPath)):
+			print "Playing default song: ", defaultSongPath
+			os.popen(cmdLinePlaySoundCommand + ' "' + defaultSongPath + '"')
 
 cookieTime = str(time.clock())
 
