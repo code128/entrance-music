@@ -33,7 +33,7 @@ while True:
 	print "Loop Start", time.asctime()
 	try:
 		#Authorize/Login
-		response = requests.request("POST", settings.url, data=payload, headers=settings.headers)
+		response = requests.request("POST", settings.url, data=settings.payload, headers=headers)
 
 		#Get the most recent front door access list
 		r = requests.request("GET", settings.url + '?c=access_report&m=select&action=search&page=1&eventcode=400', headers=headers)
@@ -59,4 +59,3 @@ while True:
 
 	print 'Loop End', time.asctime()
 	time.sleep(settings.sleepTimeInSeconds)
-
