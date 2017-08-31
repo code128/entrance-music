@@ -12,6 +12,7 @@ lastID = ""
 def playThemeSong(latestEntrant):
 	songName = latestEntrant["id"] + "_" + str(latestEntrant["name"]).replace(" ", "_") + ".mp3"
 	songPath = os.path.join(settings.soundEffectsDirectory, songName)
+	time.sleep(settings.songDelayInSeconds)
 	if (os.path.exists(songPath)):	#check for existence
 		print "playing", songPath
 		os.popen(cmdLinePlaySoundCommand + ' "' + songPath + '"')
